@@ -52,7 +52,8 @@ print(fit1)
 print(fit_adcc)
 
 likelihood(fit_adcc)
-residuals(fit1)
+dim(residuals(fit1))
+
 plot(seq(from = 1, to = 17193, by = 1), residuals(fit1)[,1], type="l", lty=1, lwd=2)
 plot(seq(from = 1, to = 17193, by = 1), residuals(fit1)[,2], type="l", lty=1, lwd=2)
 plot(seq(from = 1, to = 17193, by = 1), residuals(fit1)[,3], type="l", lty=1, lwd=2)
@@ -60,6 +61,11 @@ plot(seq(from = 1, to = 17193, by = 1), residuals(fit1)[,3], type="l", lty=1, lw
 plot(seq(from = 1, to = 17193, by = 1), sigma(fit1)[,1], type="l", lty=1, lwd=2)
 plot(seq(from = 1, to = 17193, by = 1), sigma(fit1)[,2], type="l", lty=1, lwd=2)
 plot(seq(from = 1, to = 17193, by = 1), sigma(fit1)[,3], type="l", lty=1, lwd=2)
+
+# normalize the residuals
+plot(seq(from = 1, to = 17193, by = 1), residuals(fit1)[,1] / sigma(fit1)[,1], type="l", lty=1, lwd=2)
+plot(seq(from = 1, to = 17193, by = 1), residuals(fit1)[,2] / sigma(fit1)[,2], type="l", lty=1, lwd=2)
+plot(seq(from = 1, to = 17193, by = 1), residuals(fit1)[,3] / sigma(fit1)[,3], type="l", lty=1, lwd=2)
 
 
 '''
