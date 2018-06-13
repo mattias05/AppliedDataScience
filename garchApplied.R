@@ -6,6 +6,7 @@ library(parallel)
 library(quantmod)
 
 # read data
+setwd("Desktop/Applied_Data_Science/AppliedDataScience/")
 df = read.csv("data_renamed")
 
 # set index and the column X 
@@ -23,8 +24,8 @@ spec1 = ugarchspec()
 xspec = ugarchspec(mean.model = list(armaOrder = c(1, 1)), 
                    variance.model = list(garchOrder = c(1,1), model = 'sGARCH'), 
                    distribution.model = 'std')
-#uspec = multispec(replicate(48, xspec))
-uspec = multispec(replicate(3, xspec))
+uspec = multispec(replicate(48, xspec))
+#uspec = multispec(replicate(3, xspec))
 spec1 = dccspec(uspec = uspec, 
                 dccOrder = c(1, 1), 
                 distribution = 'mvt')
