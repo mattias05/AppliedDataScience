@@ -14,7 +14,7 @@ rownames(df) <- df$X
 df$X <- NULL
 
 # consider only a subset of the dataset
-df <- df[,c("ENEL","Volkswagen","UniCredit")]
+df <- df[,c("BMW","BBVA","ENEL")]
 
 # show the first rows
 head(df)
@@ -24,8 +24,8 @@ spec1 = ugarchspec()
 xspec = ugarchspec(mean.model = list(armaOrder = c(1, 1)), 
                    variance.model = list(garchOrder = c(1,1), model = 'sGARCH'), 
                    distribution.model = 'std')
-uspec = multispec(replicate(48, xspec))
-#uspec = multispec(replicate(3, xspec))
+#uspec = multispec(replicate(48, xspec))
+uspec = multispec(replicate(3, xspec))
 spec1 = dccspec(uspec = uspec, 
                 dccOrder = c(1, 1), 
                 distribution = 'mvt')
@@ -68,6 +68,27 @@ plot(seq(from = 1, to = 17193, by = 1), residuals(fit1)[,1] / sigma(fit1)[,1], t
 plot(seq(from = 1, to = 17193, by = 1), residuals(fit1)[,2] / sigma(fit1)[,2], type="l", lty=1, lwd=2)
 plot(seq(from = 1, to = 17193, by = 1), residuals(fit1)[,3] / sigma(fit1)[,3], type="l", lty=1, lwd=2)
 
+
+
+plot(seq(from = 1, to = 17193, by = 1), residuals(fit_adcc)[,1], type="l", lty=1, lwd=2)
+plot(seq(from = 1, to = 17193, by = 1), residuals(fit_adcc)[,2], type="l", lty=1, lwd=2)
+plot(seq(from = 1, to = 17193, by = 1), residuals(fit_adcc)[,3], type="l", lty=1, lwd=2)
+
+plot(seq(from = 1, to = 17193, by = 1), sigma(fit_adcc)[,1], type="l", lty=1, lwd=2)
+plot(seq(from = 1, to = 17193, by = 1), sigma(fit_adcc)[,2], type="l", lty=1, lwd=2)
+plot(seq(from = 1, to = 17193, by = 1), sigma(fit_adcc)[,3], type="l", lty=1, lwd=2)
+
+# normalize the residuals
+plot(seq(from = 1, to = 17193, by = 1), residuals(fit_adcc)[,1] / sigma(fit_adcc)[,1], type="l", lty=1, lwd=2)
+plot(seq(from = 1, to = 17193, by = 1), residuals(fit_adcc)[,2] / sigma(fit_adcc)[,2], type="l", lty=1, lwd=2)
+plot(seq(from = 1, to = 17193, by = 1), residuals(fit_adcc)[,3] / sigma(fit_adcc)[,3], type="l", lty=1, lwd=2)
+
+
+write.csv(residuals(fit1), file = "ResidualBMW_BBVA_ENEL_MGarchFit1.csv")
+write.csv(residuals(fit_adcc), file = "ResidualBMW_BBVA_ENEL_MGarchFitADCC.csv")
+
+write.csv(sigma(fit1), file = "SigmaBMW_BBVA_ENEL_MGarchFit1.csv")
+write.csv(sigma(fit_adcc), file = "SigmaBMW_BBVA_ENEL_MGarchFitADCC.csv")
 
 '''
 https://www.rdocumentation.org/packages/rugarch/versions/1.4-0/topics/ugarchspec-methods
